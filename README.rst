@@ -62,12 +62,7 @@ Then, clone the pipeline::
 and grab the data::
 
    cd wok3
-
-   curl -O https://s3.amazonaws.com/public.ged.msu.edu/2015-wok/rseq-mapped.fq.gz
-   curl -O https://s3.amazonaws.com/public.ged.msu.edu/2015-wok/rseq-corr.fq.gz
-   curl https://s3.amazonaws.com/public.ged.msu.edu/2014-paper-streaming/mouse-ref.fa.gz \
-        | gunzip -c \
-        > rna.fa
+   ./download-data.sh
 
 And, finally, run the pipeline::
 
@@ -104,11 +99,7 @@ Then, clone the pipeline::
 and grab the data::
 
    cd wok3
-   curl -O https://s3.amazonaws.com/public.ged.msu.edu/2015-wok/rseq-mapped.fq.gz
-   curl -O https://s3.amazonaws.com/public.ged.msu.edu/2015-wok/rseq-corr.fq.gz
-   curl https://s3.amazonaws.com/public.ged.msu.edu/2014-paper-streaming/mouse-ref.fa.gz \
-        | gunzip -c \
-        > rna.fa
+   ./download-data.sh
 
 And, finally, run the pipeline::
 

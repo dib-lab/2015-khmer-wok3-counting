@@ -74,11 +74,11 @@ graphalign
 
    Figure 2: Dumb k-mer counting on error corrected reads (x axis) vs dumb mapping (y axis)
 
-This looks better - the correlation is about the same, but the counts
-from the graph paths have moved further to the right, indicating (hopefully)
-greater sensitivity.  This is to be expected - error correction is
-collapsing k-mers onto the paths we're traversing, increasing the abundance
-of each path on average.
+This looks better - the correlation is about the same, but when we
+inspect individual counts, they have moved further to the right,
+indicating (hopefully) greater sensitivity.  This is to be expected -
+error correction is collapsing k-mers onto the paths we're traversing,
+increasing the abundance of each path on average.
 
 What happens if we now *align* the transcripts to the graph built from
 the error corrected reads?
@@ -88,8 +88,9 @@ the error corrected reads?
 
    Figure 2: Graphalign path counting on error corrected reads (x axis) vs dumb mapping (y axis)
 
-Again, we see greater sensitivity, due to "correcting" transcripts
-that may differ only by a base or two.  But we also see this strange
+Again, we see mildly greater sensitivity, due to "correcting"
+transcripts that may differ only by a base or two.  But we also see
+increased counts above the main correlation, especially above the
 branch of counts at x = 0 (poor graph coverage) but with high mapping
 coverage - what gives?  Inspection reveals that these are reads with
 high mapping coverage but little to no graph alignment.  Essentially,
