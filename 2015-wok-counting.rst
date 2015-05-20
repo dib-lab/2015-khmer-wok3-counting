@@ -1,6 +1,8 @@
 Abundance counting in sequence with graphalign
 ==============================================
 
+Authors: CTB, MRC
+
 `De Bruijn graph alignment
 <http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__ should
 also be useful for exploring concepts in transcriptomics/mRNAseq
@@ -45,26 +47,51 @@ For one simple example of the possibilities, let's compare mapping
 counts (bowtie2) against transcript graph counts from the graph
 (khmer) for a small subset of a mouse mRNAseq dataset.  We measure
 transcript graph counts here by walking along the transcript in the
-graph and averaging over k-mer counts along the path.  This is implicitly
-a multimapping approach; to get results
-comparable to bowtie2's default parameters, we divide out the number
-of transcripts in which each k-mer appears (see count-median-norm.py@@,
-'counts' vs 'counts2').
+graph and averaging over k-mer counts along the path.  This is
+implicitly a multimapping approach; to get results comparable to
+bowtie2's default parameters (which random-map), we divide out the
+number of transcripts in which each k-mer appears (see
+count-median-norm.py@@, 'counts' vs 'counts2').
 
-Just doing this doesn't look that good:
+@@@
 
-@@ show some counts?
+This graph shows some correlation.  What happens if we use corrected
+mRNAseq reads (`built using graphalign
+<http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__)?
 
-However, it turns out that one reason for the poor correlation is that
-there is a lot of splice isoforms in the reference transcriptome we're
-using, and we're running bowtie2 in its default "random assignment" mode.
-Thus the bowtie2 counts are being averaged across transcripts in weird
-ways, while the graph counts are being reused multiple times (once for
-each time an exon is used in any transcript).
+@@@
 
-If we correct for this, we get a much nicer looking correlation:
+This looks better - the correlation is about the same, but the counts
+from the graph paths have moved further to the right, indicating (hopefully)
+greater sensitivity.  This is to be expected - error correction is
+collapsing k-mers onto the paths we're traversing, increasing the abundance
+of each path on average.
 
-@@
+What happens if we now *align* the transcripts to the graph built from
+the error corrected reads?
+
+@@@
+
+Again, we see greater sensitivity, due to "correcting" transcripts
+that may differ only by a base or two.  But we also see this strange
+branch of counts at x = 0 (poor graph coverage) but with high mapping
+coverage - what gives?  Inspection reveals that these are reads with
+high mapping coverage but little to no graph alignment.  Essentially,
+the graph alignment is getting trapped in a local region.  There are
+at least two overlapping reasons for this -- first, we're using the
+single seed/local alignment approach (see `error correction
+<http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__)
+rather than the more generous `multiseed alignment
+<http://ivory.idyll.org/blog/2015-wok-variant-calling.html>`__, and so
+if the starting point for graph alignment is poorly chosen, we get
+trapped into a short alignment.  Second, in all of these cases, the
+transcript *isn't completely covered* by reads, a common occurrence
+due to both low coverage data as well as incomplete transcriptomes.
+
+One side note here -- graphalign will align to low coverage (untrusted)
+regions of the graph if it has to, although the algorithm will
+pick trusted k-mers when it can.  As such it avoids the common assembler
+problem of only recovering high abundance paths.
 
 Isoform structure and expression
 --------------------------------
@@ -100,38 +127,42 @@ common ( mapping-to-reference->summing up counts->looking at isoforms
 transcript path.  Again, this is something that Kallisto and Salmon
 also enable, but there's a lot of unexplored territory here.
 
-@@ show counts along sim 
-@@ show counts along mouse paths;
-@@ show diffs w/in mouse by exon (?)
-@@ note errors, allelic differences.
+We've implemented a simple, short script to explore this here -- see
+explore-isoforms-assembled.py@@, which correctly picks out the exon
+boundaries from three simulated transcripts.  
 
-Exon structure
---------------
+Other thoughts
+~~~~~~~~~~~~~~
 
-If we can probe the structure of the De Bruijn graph directly with an
-alignment based approach, we can readily distinguish exonic
-boundaries@@ (align reads x reads?)  We can also quantify features
-across all the reads, and cross examine expression grouped by tissue
-or cell type by just loading those specific reads into the graph.
-(Or, we can use labeled De Bruijn graphs, aka "colored" DBG; more on
-that later.)
+* all of this can be used directly on metagenomes as well, for
+  straight abundance counting as well as analysis of strain variation.
+  This is of great interest to our lab.
 
-@@ align transcripts x gmc graph.
-@@ note: errors/allelic differences
+* calculating differential expression on an *exonic* level, or at exon-exon
+  junctions, is also an interesting direction.
 
-We can also discover exon boundaries by aligning all the transcripts
-to all the transcripts.  (It turns out that when you design your data
-structures to handle billions of reads, they often scale pretty well
-to hundreds of thousands of transcripts.)
+References and previous work
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@@ align transcripts to transcripts graph
-@@ note: errors, allelic differences
+* `Kallisto
+  <https://liorpachter.wordpress.com/2015/05/10/near-optimal-rna-seq-quantification-with-kallisto/>`__
+  is the first time I've seen paths in De Bruin graphs explicitly used
+  for RNAseq *quantification* rather than assembly.  Kallisto has some
+  great discussion of where this can go in the future (allele specific
+  expression being one very promising direction).
 
-----
+* There are lots of De Bruijn graph based assemblers for mRNAseq
+  (`Trinity <http://trinityrnaseq.github.io/>`__, `Oases
+  <https://www.ebi.ac.uk/~zerbino/oases/>`__, `SOAPdenovo-Trans
+  <http://soap.genomics.org.cn/SOAPdenovo-Trans.html>`__, and
+  `Trans-ABySS
+  <http://www.bcgsc.ca/platform/bioinfo/software/trans-abyss>`__.
 
-Other thoughts --
+Appendix: Running this code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* all of this can be used on metagenomes as well, for straight
-  abundance counting as well as analysis of strain variation.  This is
-  of great interest to us.
-
+The computational results in this blog post are Rather Reproducible
+(TM).  Please see
+https://github.com/dib-lab/2015-khmer-wok3-counting/blob/master/README.rst
+for instructions on replicating the results on a virtual machine or
+using a Docker container.
