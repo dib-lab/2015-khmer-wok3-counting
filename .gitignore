@@ -21,3 +21,4 @@ simple-mrna.rev.2.bt2
 *.counts
 rna.fa
 *.fai
+*.sam
