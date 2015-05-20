@@ -56,5 +56,5 @@ rseq-mapped.meds2: rna.fa rna_exon.graph rseq-mapped.graph
 rseq-corr.graph: rseq-corr.fq.gz
 	load-into-counting.py -k 21 -x 8e7 -N 4 rseq-corr.graph rseq-corr.fq.gz 
 
-rseq-corr.meds2: rseq-corr.graph
+rseq-corr.meds2: rseq-corr.graph rna_exon.graph
 	./count-median-norm.py rseq-corr.graph rna_exon.graph rna.fa > rseq-corr.meds2
