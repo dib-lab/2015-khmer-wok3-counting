@@ -64,8 +64,9 @@ number of transcripts in which each k-mer appears (see
 
    Figure 1: Dumb k-mer counting (x axis) vs dumb mapping (y axis)
 
-This graph shows some correlation.  What happens if we use corrected
-mRNAseq reads (`built using graphalign
+This graph shows some obvious basic level of correlation, but it's not
+great.  What happens if we use corrected mRNAseq reads (`built using
+graphalign
 <http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__)?
 
 .. figure:: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig2.png
@@ -119,7 +120,7 @@ for some model systems (especially emerging model organisms) isoform
 families may or may not correspond well to the information in the
 individual samples.  This leads to strange-looking situations where
 specific transcripts have high coverage in one region and low coverage
-in another (See `SAMmate <http://arxiv.org/abs/1208.3619>`__ for a
+in another (see `SAMmate <http://arxiv.org/abs/1208.3619>`__ for a
 good overview of this problem.)
 
 Consider the situation where a gene with four exons, 1-2-3-4,
