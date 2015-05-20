@@ -104,10 +104,17 @@ trapped into a short alignment.  Second, in all of these cases, the
 transcript *isn't completely covered* by reads, a common occurrence
 due to both low coverage data as well as incomplete transcriptomes.
 
-One side note here -- graphalign will align to low coverage (untrusted)
-regions of the graph if it has to, although the algorithm will
-pick trusted k-mers when it can.  As such it avoids the common assembler
-problem of only recovering high abundance paths.
+In this specific case, the effect is largely due to low coverage;
+if you drop the coverage further, it's even more exacerbated.
+
+Two side notes here -- first, graphalign will align to low coverage
+(untrusted) regions of the graph if it has to, although the algorithm
+will pick trusted k-mers when it can.  As such it avoids the common
+assembler problem of only recovering high abundance paths.
+
+And second, *no one should use this code for counting.* This is not
+even a proof of concept, but rather an attempt to see how well mapping
+and graph counting fit with an intentionally simplistic approach.
 
 Isoform structure and expression
 --------------------------------
@@ -147,14 +154,14 @@ We've implemented a simple, short script to explore this here -- see
 `explore-isoforms-assembled.py
 <https://github.com/dib-lab/2015-khmer-wok3-counting/blob/master/explore-isoforms-assembled.py>`__,
 which correctly picks out the exon boundaries from three simulated
-transcripts.
+transcripts (try running it on 'simple-mrna.fa').
 
 Other thoughts
 ~~~~~~~~~~~~~~
 
-* all of this can be used directly on metagenomes as well, for
-  straight abundance counting as well as analysis of strain variation.
-  This is of great interest to our lab.
+* these counting approaches can be used directly on metagenomes as
+  well, for straight abundance counting as well as analysis of strain
+  variation.  This is of great interest to our lab.
 
 * calculating differential expression on an *exonic* level, or at exon-exon
   junctions, is also an interesting direction.
