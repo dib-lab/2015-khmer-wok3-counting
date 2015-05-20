@@ -59,14 +59,14 @@ and grab the data::
    cd wok3
 
    curl -O https://s3.amazonaws.com/public.ged.msu.edu/2015-wok/rseq-mapped.fq.gz
-   @@rseq-corr
+   curl -O https://s3.amazonaws.com/public.ged.msu.edu/2015-wok/rseq-corr.fq.gz
    curl https://s3.amazonaws.com/public.ged.msu.edu/2014-paper-streaming/mouse-ref.fa.gz \
         | gunzip -c \
         > rna.fa
 
 And, finally, run the pipeline::
 
-   make
+   make KHMER=/home/ubuntu/khmer NULLGRAPH=/home/ubuntu/nullgraph
 
 To interpret the results, please see the blog post above, or look through
 the Makefile.
@@ -99,7 +99,11 @@ Then, clone the pipeline::
 and grab the data::
 
    cd wok3
-   @@@
+   curl -O https://s3.amazonaws.com/public.ged.msu.edu/2015-wok/rseq-mapped.fq.gz
+   curl -O https://s3.amazonaws.com/public.ged.msu.edu/2015-wok/rseq-corr.fq.gz
+   curl https://s3.amazonaws.com/public.ged.msu.edu/2014-paper-streaming/mouse-ref.fa.gz \
+        | gunzip -c \
+        > rna.fa
 
 And, finally, run the pipeline::
 
@@ -107,3 +111,6 @@ And, finally, run the pipeline::
 
 To interpret the results, please see the blog post above, or look through
 the Makefile.
+
+.. @@ipythn notebook
+.. @@fix wok1, wok2 make
