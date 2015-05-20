@@ -1,7 +1,7 @@
 Abundance counting of sequences in graphs with graphalign
 =========================================================
 
-:author: \C. Titus Brown and Michael R. Crusoe
+:author: \C. Titus Brown, Michael R. Crusoe, and Jordan Fish
 :tags: khmer,wok,graphalign,counting
 :date: 2015-05-20
 :slug: 2015-wok-counting
@@ -57,15 +57,19 @@ bowtie2's default parameters (which random-map), we divide out the
 number of transcripts in which each k-mer appears (see
 count-median-norm.py@@, 'counts' vs 'counts2').
 
-.. figure: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig1.png
+.. figure:: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig1.png
    :width: 60%
+
+   Some caption goes here.
 
 This graph shows some correlation.  What happens if we use corrected
 mRNAseq reads (`built using graphalign
 <http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__)?
 
-.. figure: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig2.png
+.. figure:: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig2.png
    :width: 60%
+
+   Other caption goes here.
 
 This looks better - the correlation is about the same, but the counts
 from the graph paths have moved further to the right, indicating (hopefully)
@@ -76,8 +80,10 @@ of each path on average.
 What happens if we now *align* the transcripts to the graph built from
 the error corrected reads?
 
-.. figure: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig3.png
+.. figure:: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig3.png
    :width: 60%
+
+   Foo.
 
 Again, we see greater sensitivity, due to "correcting" transcripts
 that may differ only by a base or two.  But we also see this strange
