@@ -1,7 +1,11 @@
-Abundance counting in sequence with graphalign
-==============================================
+Abundance counting of sequences in graphs with graphalign
+=========================================================
 
-Authors: CTB, MRC
+:author: \C. Titus Brown, Michael R. Crusoe, and Jordan Fish
+:tags: khmer,wok,graphalign,counting
+:date: 2015-05-20
+:slug: 2015-wok-counting
+:category: science
 
 `De Bruijn graph alignment
 <http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__ should
@@ -51,15 +55,24 @@ graph and averaging over k-mer counts along the path.  This is
 implicitly a multimapping approach; to get results comparable to
 bowtie2's default parameters (which random-map), we divide out the
 number of transcripts in which each k-mer appears (see
-count-median-norm.py@@, 'counts' vs 'counts2').
+`count-median-norm.py
+<https://github.com/dib-lab/2015-khmer-wok3-counting/blob/master/count-median-norm.py>`__,
+'counts' vs 'counts2').
 
-@@@
+.. figure:: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig1.png
+   :width: 60%
 
-This graph shows some correlation.  What happens if we use corrected
-mRNAseq reads (`built using graphalign
+   Figure 1: Dumb k-mer counting (x axis) vs dumb mapping (y axis)
+
+This graph shows some obvious basic level of correlation, but it's not
+great.  What happens if we use corrected mRNAseq reads (`built using
+graphalign
 <http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__)?
 
-@@@
+.. figure:: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig2.png
+   :width: 60%
+
+   Figure 2: Dumb k-mer counting on error corrected reads (x axis) vs dumb mapping (y axis)
 
 This looks better - the correlation is about the same, but the counts
 from the graph paths have moved further to the right, indicating (hopefully)
@@ -70,7 +83,10 @@ of each path on average.
 What happens if we now *align* the transcripts to the graph built from
 the error corrected reads?
 
-@@@
+.. figure:: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig3.png
+   :width: 60%
+
+   Figure 2: Graphalign path counting on error corrected reads (x axis) vs dumb mapping (y axis)
 
 Again, we see greater sensitivity, due to "correcting" transcripts
 that may differ only by a base or two.  But we also see this strange
@@ -104,7 +120,7 @@ for some model systems (especially emerging model organisms) isoform
 families may or may not correspond well to the information in the
 individual samples.  This leads to strange-looking situations where
 specific transcripts have high coverage in one region and low coverage
-in another (See `SAMmate <http://arxiv.org/abs/1208.3619>`__ for a
+in another (see `SAMmate <http://arxiv.org/abs/1208.3619>`__ for a
 good overview of this problem.)
 
 Consider the situation where a gene with four exons, 1-2-3-4,
@@ -128,8 +144,10 @@ transcript path.  Again, this is something that Kallisto and Salmon
 also enable, but there's a lot of unexplored territory here.
 
 We've implemented a simple, short script to explore this here -- see
-explore-isoforms-assembled.py@@, which correctly picks out the exon
-boundaries from three simulated transcripts.  
+`explore-isoforms-assembled.py
+<https://github.com/dib-lab/2015-khmer-wok3-counting/blob/master/explore-isoforms-assembled.py>`__,
+which correctly picks out the exon boundaries from three simulated
+transcripts.
 
 Other thoughts
 ~~~~~~~~~~~~~~
