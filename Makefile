@@ -4,7 +4,7 @@ KHMER=../khmer
 all: simple-mrna-reads.fa rseq-mapped.counts rseq-mapped.meds
 
 clean:
-	-rm simple-genome-reads.fa
+	-rm simple-mrna-reads.fa *.graph
 
 simple-mrna-reads.fa: simple-mrna.fa
 	$(NULLGRAPH)/make-biased-reads.py -S 1 -e .01 -r 100 -C 100 simple-mrna.fa --mutation-details simple-mrna-reads.mut > simple-mrna-reads.fa
@@ -52,8 +52,8 @@ rseq-mapped.meds: rna.fa rseq-mapped.graph
 rseq-mapped.meds2: rna.fa rna_exon.graph rseq-mapped.graph
 	./count-median-norm.py rseq-mapped.graph rna_exon.graph rna.fa > rseq-mapped.meds2
 
-rseq-corr.graph: corr.gz
-	load-into-counting.py -k 21 -x 2e7 -N 4 rseq-corr.graph corr.gz 
+rseq-corr.graph: rseq-corr.fq.gz
+	load-into-counting.py -k 21 -x 2e7 -N 4 rseq-corr.graph rseq-corr.fq.gz 
 
 rseq-corr.meds2:
 	./count-median-norm.py rseq-corr.graph rna_exon.graph rna.fa > rseq-corr.meds2
