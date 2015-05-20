@@ -57,14 +57,14 @@ bowtie2's default parameters (which random-map), we divide out the
 number of transcripts in which each k-mer appears (see
 count-median-norm.py@@, 'counts' vs 'counts2').
 
-.. figure: ./fig1.png
+.. figure: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig1.png
    :width: 60%
 
 This graph shows some correlation.  What happens if we use corrected
 mRNAseq reads (`built using graphalign
 <http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__)?
 
-.. figure: ./fig2.png
+.. figure: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig2.png
    :width: 60%
 
 This looks better - the correlation is about the same, but the counts
@@ -76,7 +76,7 @@ of each path on average.
 What happens if we now *align* the transcripts to the graph built from
 the error corrected reads?
 
-.. figure: ./fig3.png
+.. figure: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig3.png
    :width: 60%
 
 Again, we see greater sensitivity, due to "correcting" transcripts
