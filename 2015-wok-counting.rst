@@ -1,7 +1,11 @@
-Abundance counting in sequence with graphalign
-==============================================
+Abundance counting of sequences in graphs with graphalign
+=========================================================
 
-Authors: CTB, MRC
+:author: \C. Titus Brown and Michael R. Crusoe
+:tags: khmer,wok,graphalign,counting
+:date: 2015-05-20
+:slug: 2015-wok-counting
+:category: science
 
 `De Bruijn graph alignment
 <http://ivory.idyll.org/blog/2015-wok-error-correction.html>`__ should
