@@ -18,7 +18,12 @@ instructions for a blank Ubuntu virtual machine, and second,
 instructions for running inside a Docker container.
 
 You will need less than 2 GB of RAM and about 10 GB of free disk space to
-run all of this.  It should take about an hour to run.
+run all of this.  It should take about 15 minutes to run.
+
+To regenerate the figures in the blog post, see `the Jupyter notebook
+'figures.ipynb'
+<https://github.com/dib-lab/2015-khmer-wok3-counting/blob/master/figures.ipynb>`__
+in the repository.
 
 Using an Ubuntu 14.04 virtual machine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -111,6 +116,3 @@ And, finally, run the pipeline::
 
 To interpret the results, please see the blog post above, or look through
 the Makefile.
-
-.. @@ipythn notebook
-.. @@fix wok1, wok2 make
