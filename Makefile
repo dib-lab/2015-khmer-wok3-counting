@@ -1,7 +1,8 @@
 NULLGRAPH=../nullgraph
 KHMER=../khmer
 
-all: simple-mrna-reads.fa rseq-mapped.counts rseq-mapped.meds
+all: simple-mrna-reads.fa rseq-mapped.counts rseq-mapped.meds rseq-corr.meds2 \
+	rseq-mapped.meds2
 
 clean:
 	-rm simple-mrna-reads.fa *.graph
@@ -41,7 +42,7 @@ rseq-mapped.counts: rseq-mapped.sam
 	./sam-count.py rseq-mapped.sam -o rseq-mapped.counts
 
 rseq-mapped.graph: rseq-mapped.fq.gz
-	load-into-counting.py -k 21 -x 2e7 -N 4 rseq-mapped.graph rseq-mapped.fq.gz
+	load-into-counting.py -k 21 -x 1e8 -N 4 rseq-mapped.graph rseq-mapped.fq.gz
 
 rna_exon.graph: rna.fa
 	load-into-counting.py -k 21 -x 8e7 -N 4 rna_exon.graph rna.fa
@@ -53,7 +54,7 @@ rseq-mapped.meds2: rna.fa rna_exon.graph rseq-mapped.graph
 	./count-median-norm.py rseq-mapped.graph rna_exon.graph rna.fa > rseq-mapped.meds2
 
 rseq-corr.graph: rseq-corr.fq.gz
-	load-into-counting.py -k 21 -x 2e7 -N 4 rseq-corr.graph rseq-corr.fq.gz 
+	load-into-counting.py -k 21 -x 8e7 -N 4 rseq-corr.graph rseq-corr.fq.gz 
 
-rseq-corr.meds2:
+rseq-corr.meds2: rseq-corr.graph
 	./count-median-norm.py rseq-corr.graph rna_exon.graph rna.fa > rseq-corr.meds2
