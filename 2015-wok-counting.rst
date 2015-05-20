@@ -55,12 +55,14 @@ graph and averaging over k-mer counts along the path.  This is
 implicitly a multimapping approach; to get results comparable to
 bowtie2's default parameters (which random-map), we divide out the
 number of transcripts in which each k-mer appears (see
-count-median-norm.py@@, 'counts' vs 'counts2').
+`count-median-norm.py
+<https://github.com/dib-lab/2015-khmer-wok3-counting/blob/master/count-median-norm.py>`__,
+'counts' vs 'counts2').
 
 .. figure:: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig1.png
    :width: 60%
 
-   Some caption goes here.
+   Figure 1: Dumb k-mer counting (x axis) vs dumb mapping (y axis)
 
 This graph shows some correlation.  What happens if we use corrected
 mRNAseq reads (`built using graphalign
@@ -69,7 +71,7 @@ mRNAseq reads (`built using graphalign
 .. figure:: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig2.png
    :width: 60%
 
-   Other caption goes here.
+   Figure 2: Dumb k-mer counting on error corrected reads (x axis) vs dumb mapping (y axis)
 
 This looks better - the correlation is about the same, but the counts
 from the graph paths have moved further to the right, indicating (hopefully)
@@ -83,7 +85,7 @@ the error corrected reads?
 .. figure:: https://raw.githubusercontent.com/dib-lab/2015-khmer-wok3-counting/master/fig3.png
    :width: 60%
 
-   Foo.
+   Figure 2: Graphalign path counting on error corrected reads (x axis) vs dumb mapping (y axis)
 
 Again, we see greater sensitivity, due to "correcting" transcripts
 that may differ only by a base or two.  But we also see this strange
@@ -141,8 +143,10 @@ transcript path.  Again, this is something that Kallisto and Salmon
 also enable, but there's a lot of unexplored territory here.
 
 We've implemented a simple, short script to explore this here -- see
-explore-isoforms-assembled.py@@, which correctly picks out the exon
-boundaries from three simulated transcripts.  
+`explore-isoforms-assembled.py
+<https://github.com/dib-lab/2015-khmer-wok3-counting/blob/master/explore-isoforms-assembled.py>`__,
+which correctly picks out the exon boundaries from three simulated
+transcripts.
 
 Other thoughts
 ~~~~~~~~~~~~~~
